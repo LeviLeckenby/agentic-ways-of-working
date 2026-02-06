@@ -37,3 +37,11 @@ Conduct a session retrospective to capture learnings and improve the process.
    - Suggest improvements to agent personas or workflows
 
 6. **Update memory files** with key insights for future sessions
+
+7. **Session metrics** (optional observability):
+   - How many tasks were planned vs completed?
+   - How many validation cycles were needed (fix-and-resubmit loops)?
+   - Which agents were used and for what?
+   - Were there any failed delegations or retries?
+   - Approximate session duration and complexity
+   - Record these in the project memory for trend analysis across sessions

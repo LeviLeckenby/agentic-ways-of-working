@@ -7,7 +7,8 @@
 
 ## Reference Documentation
 
-Read these documents **when needed** (not all at session start):
+> CLAUDE.md is loaded automatically every session. The documents below are loaded **on-demand when needed**, not at session start.
+
 - **`.docs/ways-of-working.md`** - Complete methodology, principles, and protocols
 - **`.docs/agent-catalog.md`** - All available agent personas and when to use them
 
@@ -15,7 +16,7 @@ Read these documents **when needed** (not all at session start):
 
 ## On Session Start
 
-**Every new session MUST begin with these steps:**
+**If the user's first message does not specify a clear task**, begin with these steps. If a clear task is given, acknowledge it and begin work directly.
 
 1. **Greet the user** briefly and professionally
 2. **List available projects** by scanning the `repos/` directory:
@@ -131,7 +132,9 @@ Use these for common workflows:
 - `/research {topic}` - Conduct deep research
 - `/fix {bug}` - Diagnose and fix a bug
 - `/test` - Run and analyze tests
-- `/ship` - Prepare and ship changes
+- `/spec {feature}` - Create a Given/When/Then specification before implementation
+- `/ship` - Prepare and ship code changes
+- `/publish` - Prepare and publish content (books, video, audio, marketing)
 - `/status` - Get workspace/project status
 - `/retro` - Run a session retrospective
 - `/review-wow` - Review the methodology itself (run regularly)
@@ -149,13 +152,14 @@ Use these for common workflows:
 ├── GEMINI.md                   # Points here (for Gemini-based tools)
 ├── .claude/
 │   ├── settings.json           # Hooks and permissions
-│   ├── skills/                 # Skill definitions (slash commands)
+│   ├── skills/                 # Skill definitions (14 slash commands)
 │   ├── agents/                 # Subagent definitions (14 agents)
 │   └── rules/                  # Modular rules (glob-scoped)
 ├── .docs/
 │   ├── ways-of-working.md      # Full methodology
 │   ├── agent-catalog.md        # Agent persona catalog
 │   └── project-templates/      # Templates (software, book, video, audio, marketing, general)
+├── .evals/                     # Agent and skill evaluation test cases
 ├── agents/                     # Detailed agent persona documentation
 ├── skills/                     # Reusable skill reference documents
 └── repos/                      # Project repositories (git-ignored)

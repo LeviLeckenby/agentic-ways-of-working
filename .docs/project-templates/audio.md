@@ -55,6 +55,14 @@ style-guide.md  # Voice, tone, and format conventions
 7. Show notes and metadata
 8. Distribution and promotion
 
+## Quality Gates
+Before finalizing any episode, validate:
+1. Script review (invoke Reviewer) - accuracy, flow, timing - must output APPROVE
+2. Fact-check (invoke Researcher if informational) - must output VERIFIED
+3. Technical specs validation (bitrate, format, loudness standards)
+4. Show notes accuracy check
+5. Use `/publish` when ready to finalize
+
 ## Current Progress
 - [ ] {Episode 1: Title} - {status}
 - [ ] {Episode 2: Title} - {status}

@@ -45,6 +45,13 @@ production/     # Production notes, schedules, checklists
 7. Post-production notes
 8. Thumbnail and metadata
 
+## Quality Gates
+Before finalizing any episode, validate:
+1. Script review (invoke Reviewer) - accuracy, flow, timing - must output APPROVE
+2. Brand/audience alignment check (if applicable)
+3. Technical specs validation (resolution, format, accessibility captions)
+4. Use `/publish` when ready to finalize
+
 ## Current Progress
 - [ ] {Episode 1: Title} - {status}
 - [ ] {Episode 2: Title} - {status}

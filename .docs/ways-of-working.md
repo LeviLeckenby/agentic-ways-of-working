@@ -350,6 +350,7 @@ When a new repository is added to the workspace:
    - Active goals / roadmap items
 
 ### Cross-Repository Work
+
 When work spans multiple repositories:
 
 1. **Identify all affected repos** before starting
@@ -357,6 +358,17 @@ When work spans multiple repositories:
 3. **Implement in dependency order** - start with the most-depended-on repo
 4. **Test integration points** between repos
 5. **Commit and push atomically** where possible (or document the required order)
+
+### Cross-Project Coordination
+
+For changes that affect multiple projects in the workspace:
+
+1. **Map the dependency graph** — which project depends on which?
+2. **Define the contract first** — API schemas, shared types, interface agreements
+3. **Use feature flags** if coordinated deployment isn't possible
+4. **Test end-to-end** — integration tests across project boundaries
+5. **Document the coordination** — create a cross-project plan file listing all affected repos, the order of changes, and rollback procedures
+6. **Context management** — use `/switch` between projects, externalizing state to files between switches
 
 ### Repository Context Loading
 When switching to a project:
@@ -632,6 +644,20 @@ For non-code projects (books, marketing, video scripts), a parallel review disci
 - [ ] SEO considerations addressed (if applicable)
 - [ ] Brand voice alignment (if applicable)
 
+### Content Validation Pipeline
+
+For non-code projects, apply an adapted validation pipeline:
+
+1. **Self-Review (Writer)**: Structure, flow, accuracy, style guide compliance
+2. **Editorial Review (Reviewer as Editor)**: Quality, clarity, consistency, audience fit. Output: `APPROVE` or `REQUEST CHANGES`
+3. **Fact-Check (Researcher)**: Verify claims, statistics, references. Output: `VERIFIED` or `ISSUES FOUND`
+4. **Conditional Validators**:
+   - IF marketing content → Brand voice review (Marketing Strategist)
+   - IF technical content → Technical accuracy review (Developer or Architect)
+   - IF SEO-relevant → SEO optimization check (Marketing Strategist or Analyst)
+
+Resolution: All Critical/High issues must be addressed before publishing. Use `/publish` to ship content through this pipeline.
+
 ---
 
 ## Communication Protocol
@@ -725,7 +751,7 @@ Treat the context window as a budget:
 
 ## Autonomy Levels
 
-The user can set the autonomy level for each session or project:
+The autonomy level is a conceptual guideline for how much independence the agent exercises. The user's behavior and instructions signal which level to operate at.
 
 ### Level 1: Supervised
 - Agent proposes every action before executing
@@ -734,20 +760,14 @@ The user can set the autonomy level for each session or project:
 
 ### Level 2: Guided (Default)
 - Agent executes routine operations autonomously
-- Pauses for architectural decisions, risky operations
+- Pauses for architectural decisions, risky operations, and genuine ambiguity
 - Best for: Active development with human oversight
 
 ### Level 3: Autonomous
-- Agent executes all operations independently
-- Only pauses for explicit ambiguity or blockers
+- Agent executes all operations independently, including commits
+- Only pauses for explicit ambiguity or critical blockers
 - Reports results at the end
-- Best for: Well-defined tasks, trusted projects, batch operations
-
-### Level 4: Full Auto
-- Agent executes, commits, and pushes autonomously
-- Handles all decisions within established conventions
-- Only contacts human for critical blockers
-- Best for: CI/CD-like workflows, maintenance tasks
+- Best for: Well-defined tasks, trusted projects, batch operations, CI/CD-like workflows
 
 ---
 
@@ -869,6 +889,57 @@ Understanding and preventing these failure modes is as important as following th
 ---
 
 ## Appendix: Quick Reference
+
+### Session Lifecycle Diagram
+
+```
+Session Start
+     │
+     ▼
+┌──────────────┐     ┌──────────────────┐
+│  /start      │────▶│  Load project    │
+│  (if needed) │     │  context         │
+└──────────────┘     └────────┬─────────┘
+                              │
+                              ▼
+                     ┌──────────────────┐
+                     │  /plan {goal}    │
+                     │  Decompose tasks │
+                     └────────┬─────────┘
+                              │
+                              ▼
+                     ┌──────────────────┐
+                     │  Execute tasks   │◀──┐
+                     │  (parallel where │   │
+                     │   possible)      │   │
+                     └────────┬─────────┘   │
+                              │             │
+                              ▼             │
+                     ┌──────────────────┐   │
+                     │  Validate        │   │
+                     │  (reviewer +     │   │
+                     │   security)      │   │
+                     └────────┬─────────┘   │
+                              │             │
+                         Pass?│             │
+                        ┌─────┴─────┐       │
+                        │No         │Yes    │
+                        │           ▼       │
+                        │  ┌────────────┐   │
+                        │  │  /ship     │   │
+                        │  │  commit/PR │   │
+                        │  └─────┬──────┘   │
+                        │        │          │
+                        │        ▼          │
+                        │  More tasks? ─Yes─┘
+                        │        │
+                        │        │No
+                        ▼        ▼
+                     ┌──────────────────┐
+                     │  /retro          │
+                     │  Session wrap-up │
+                     └──────────────────┘
+```
 
 ### Starting a Session
 ```

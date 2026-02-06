@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Review what was accomplished in this response. If code files were created or modified and no tests were run and no reviewer/security-auditor subagent was invoked, respond with 'BLOCK: Code changes detected without validation. Please run tests and invoke the reviewer and security-auditor subagents before completing.' Otherwise respond with 'ALLOW'.",
+            "prompt": "Check if any Write or Edit tool calls targeted code files (*.ts, *.js, *.py, *.go, *.rs, *.java, *.tsx, *.jsx, *.vue, *.rb, *.cs, *.cpp, *.c, *.h, *.swift, *.kt) in this response. If code files were modified AND no Task tool was used to invoke reviewer or security-auditor subagents, respond with 'BLOCK: Code changes detected without validation. Please invoke the reviewer and security-auditor subagents before completing.' If no code files were modified, or if validation subagents were invoked, respond with 'ALLOW'.",
             "description": "Ensure validation pipeline runs for code changes"
           }
         ]

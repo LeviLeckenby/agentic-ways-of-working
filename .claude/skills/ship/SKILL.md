@@ -40,6 +40,14 @@ Before ANYTHING else, verify the Mandatory Validation Pipeline has been complete
 - After fixes, re-run the failed gate(s). If the fix was substantial, re-run ALL gates.
 - Do NOT proceed to commit until all gates pass
 
+### 3a. Emergency Override (use sparingly)
+If a gate failure is due to a known flaky test, infrastructure issue, or the user explicitly requests an override:
+1. The user MUST provide a written reason for the override
+2. Document the override reason in the commit message body
+3. Add `Override: {reason}` to the commit message footer
+4. Create a follow-up TODO to resolve the underlying issue
+5. This does NOT apply to security-auditor Critical findings — those can NEVER be overridden
+
 ### 4. Compose commit
 - Stage appropriate files (NEVER stage .env, credentials, keys, etc.)
 - Create a well-formed commit message following conventions:

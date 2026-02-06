@@ -23,6 +23,8 @@
 | [Marketing](../agents/marketing.md) | Marketing strategy | Tier 2 (sonnet) | Marketing tasks |
 | [Product](../agents/product.md) | Product management | Tier 1-2 | Requirements & prioritization |
 
+> **Note on naming**: The Quick Reference above links to detailed persona docs in `agents/` which use short names (e.g., `security.md`, `marketing.md`, `product.md`). When invoking subagents via `.claude/agents/`, use the full compound names: `security-auditor`, `marketing-strategist`, `product-manager`.
+
 ---
 
 ## Agent Selection by Project Type
@@ -149,3 +151,11 @@ If a project needs a specialized agent not in this catalog:
    - When to invoke (trigger conditions)
 3. Add the agent to this catalog
 4. Reference it from the project's CLAUDE.md if project-specific
+
+---
+
+## Agent Memory
+
+All subagent definitions in `.claude/agents/` include `memory: project` in their YAML frontmatter. This enables persistent memory scoped to the current project — agents retain learnings, patterns, and context across sessions within the same project directory.
+
+When creating custom agents, include `memory: project` in the YAML frontmatter to enable this capability.

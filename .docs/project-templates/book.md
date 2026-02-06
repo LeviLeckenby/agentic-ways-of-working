@@ -40,6 +40,13 @@ outline.md     # Master outline
 5. Review pass (accuracy and clarity)
 6. Polish pass (style and grammar)
 
+## Quality Gates
+Before considering any chapter complete, run through the Content Validation Pipeline:
+1. Self-review (structure, flow, style guide compliance)
+2. Editorial review (invoke Reviewer as Editor) - must output APPROVE
+3. Fact-check (invoke Researcher for non-fiction) - must output VERIFIED
+4. Use `/publish` when ready to finalize
+
 ## Current Progress
 - [ ] {Chapter 1: Title} - {status}
 - [ ] {Chapter 2: Title} - {status}

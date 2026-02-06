@@ -58,6 +58,14 @@ strategy.md     # Overall marketing strategy
 7. Performance monitoring and optimization
 8. Reporting and retrospective
 
+## Quality Gates
+Before publishing any content, validate:
+1. Brand voice review (invoke Marketing Strategist) - must confirm alignment
+2. Accuracy and compliance review (invoke Reviewer) - must output APPROVE
+3. SEO validation (if applicable)
+4. A/B test plan defined for key pieces
+5. Use `/publish` when ready to finalize
+
 ## Current Goals
 - [ ] {Goal 1}
 - [ ] {Goal 2}

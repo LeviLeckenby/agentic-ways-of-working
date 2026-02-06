@@ -24,15 +24,16 @@ This isn't just documentation. It's a working system with enforced quality gates
 ### Core Infrastructure
 - **CLAUDE.md** (156 lines) - Source of truth for all agents
 - **14 subagent definitions** with YAML frontmatter for Claude Code
-- **15 detailed agent personas** (orchestrator, architect, developer, reviewer, researcher, planner, writer, tester, devops, security-auditor, analyst, designer, marketing-strategist, product-manager, and base)
+- **15 detailed agent personas** (orchestrator, architect, developer, reviewer, researcher, planner, writer, tester, devops, security, analyst, designer, marketing, product, and base)
 - **8 reusable skill reference docs** (git-workflow, code-generation, testing, documentation, refactoring, research, content-creation, deployment)
 
 ### Advanced Features
-- **12 skills** with full implementations (start, new-project, switch, plan, review, research, fix, test, ship, status, retro, review-wow)
+- **14 skills** with full implementations (start, new-project, switch, plan, spec, review, research, fix, test, ship, publish, status, retro, review-wow)
 - **7 modular rules** with glob-based path scoping (safety, validation, git-conventions, code-quality, testing, content-quality, context-management)
 - **Validation hooks** for deterministic enforcement (pre-tool destructive command blocker, post-response code validation gate)
 - **Agent Teams** support for advanced parallel orchestration
 - **Persistent agent memory** scoped to projects
+- **Evaluation suite** (`.evals/`) for agent and skill quality verification
 
 ### Project Support
 - **6 project templates** (software, book, video, audio, marketing, general)
@@ -60,7 +61,7 @@ cd agentic-ways-of-working
 - **Gemini-based tools**: Open the directory. The AI reads `GEMINI.md`, which points to `CLAUDE.md`.
 
 ### 3. Initialize a Session
-Use the `/start` skill to begin:
+In your AI tool's chat interface, type the `/start` slash command to begin:
 ```
 /start
 ```
@@ -106,13 +107,14 @@ agentic-ways-of-working/
 ├── .claude/
 │   ├── settings.json           # Hooks, permissions, agent teams config
 │   ├── commands/               # Legacy slash commands (9 commands)
-│   ├── skills/                 # Modern skill definitions (12 skills)
+│   ├── skills/                 # Modern skill definitions (14 skills)
 │   ├── agents/                 # Subagent definitions (14 agents, YAML frontmatter)
 │   └── rules/                  # Modular rules (7 rules, glob-scoped)
 ├── .docs/
 │   ├── ways-of-working.md      # Full methodology (~834 lines)
 │   ├── agent-catalog.md        # Agent persona catalog
 │   └── project-templates/      # Templates (6 types)
+├── .evals/                     # Agent and skill evaluation test cases
 ├── agents/                     # Detailed agent persona docs (15 files)
 ├── skills/                     # Reusable skill reference (8 files)
 └── repos/                      # Your projects (git-ignored, each has own repo)
@@ -128,11 +130,13 @@ agentic-ways-of-working/
 | `/new-project` | Create a new project with template-based scaffolding |
 | `/switch` | Switch to a different project |
 | `/plan {goal}` | Create a decomposed implementation plan |
+| `/spec {feature}` | Create a Given/When/Then specification before implementation |
 | `/review {target}` | Review code or content against quality criteria |
 | `/research {topic}` | Conduct deep research with source citation |
 | `/fix {bug}` | Diagnose and fix a bug with root cause analysis |
 | `/test` | Run tests, analyze failures, write new tests |
-| `/ship` | Prepare changes for shipping (tests, validation, commit, PR) |
+| `/ship` | Prepare code changes for shipping (tests, validation, commit, PR) |
+| `/publish` | Prepare content for publishing (editorial review, fact-check, quality gates) |
 | `/status` | Get workspace/project status report |
 | `/retro` | Run a session retrospective and capture learnings |
 | `/review-wow` | Review the methodology itself for gaps and improvements |

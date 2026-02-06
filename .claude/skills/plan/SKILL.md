@@ -28,3 +28,11 @@ $ARGUMENTS - Description of what to plan
    - Parallelization opportunities
 7. Present the plan to the user for approval
 8. On approval, create the task list and begin execution
+
+### Post-Approval Execution Handoff
+After the user approves the plan:
+1. Create a task list tracking each task from the plan
+2. For the first task, invoke the assigned agent with full context
+3. As each task completes, mark it done and invoke the next agent
+4. If tasks can be parallelized, invoke multiple agents simultaneously
+5. Track overall progress and report to the user at natural breakpoints
