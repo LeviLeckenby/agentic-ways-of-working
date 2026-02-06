@@ -240,6 +240,27 @@ Agent Teams are a coordination model distinct from subagents. While subagents re
 | Token cost | Lower (~20K overhead each) | Higher (~5x subagent cost) |
 | Session | Part of main session | Independent sessions |
 
+### Decision Framework
+
+```
+Is this a focused task with clear inputs/outputs?
+  └── Yes → SUBAGENT (cheaper, simpler, sufficient)
+
+Do agents need to communicate with EACH OTHER (not just report back)?
+  └── No  → SUBAGENT (orchestrator mediates between them)
+  └── Yes ↓
+
+Will agents need to challenge, iterate on, or build upon each other's work?
+  └── No  → SUBAGENT (parallel fan-out, synthesize results)
+  └── Yes ↓
+
+Is the ~5x token cost justified by the complexity and quality requirement?
+  └── No  → SUBAGENT (orchestrator passes context between rounds)
+  └── Yes → AGENT TEAM
+```
+
+**Rule of thumb**: Default to subagents. Escalate to Agent Teams only when inter-agent discussion would materially improve the outcome — typically for multi-perspective design, adversarial review, or coordinated multi-component work.
+
 ### When to Use Agent Teams
 
 - **Research & Review**: Parallel investigation of different aspects, teammates challenge each other's findings
