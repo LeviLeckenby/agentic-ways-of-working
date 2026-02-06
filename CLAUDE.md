@@ -65,6 +65,8 @@ When delegating, always provide: clear task, all relevant file paths/context, su
 | Security | `security-auditor` | opus |
 | Marketing | `marketing-strategist` | sonnet/opus |
 | Product | `product-manager` | sonnet/opus |
+| DevOps | `devops` | sonnet |
+| Analysis | `analyst` | sonnet |
 | Design | `designer` | sonnet/opus |
 | Orchestration | `orchestrator` | opus |
 
@@ -127,9 +129,14 @@ Use these for common workflows:
 - `/plan {goal}` - Create an implementation plan
 - `/review {target}` - Review code or content
 - `/research {topic}` - Conduct deep research
+- `/fix {bug}` - Diagnose and fix a bug
+- `/test` - Run and analyze tests
 - `/ship` - Prepare and ship changes
 - `/status` - Get workspace/project status
 - `/retro` - Run a session retrospective
+- `/review-wow` - Review the methodology itself (run regularly)
+
+> **Note**: Skills (`.claude/skills/`) are the current standard. Legacy commands (`.claude/commands/`) are retained for backward compatibility with older Claude Code versions. Skills add YAML frontmatter for richer configuration (isolated context, tool restrictions, argument hints).
 
 ---
 

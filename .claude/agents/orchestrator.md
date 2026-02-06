@@ -49,3 +49,15 @@ Always provide these when delegating:
 - NEVER assume context transfers between agents - provide everything explicitly
 - ALWAYS look for parallel execution opportunities
 - Subagents cannot spawn other subagents - plan delegation depth accordingly
+
+## Subagent Failure Recovery
+
+When a subagent fails or returns unusable output:
+
+1. **Assess the failure** — Did it error out? Return incomplete results? Misunderstand the task?
+2. **First retry**: Re-invoke with a clearer, more specific prompt. Add explicit constraints or examples.
+3. **Second retry**: Try a different model tier (upgrade to opus for complex tasks, downgrade to sonnet if opus is over-thinking).
+4. **If still failing**: Try an alternative approach — different agent, different decomposition, or handle the task directly.
+5. **Escalate to user** if the task cannot be completed after reasonable attempts. Provide: what was tried, what failed, and recommended options.
+
+Never retry the same failing prompt more than twice. Each retry must be meaningfully different.

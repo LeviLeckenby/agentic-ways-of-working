@@ -17,13 +17,14 @@
 7. [Project Types & Adaptive Behavior](#project-types--adaptive-behavior)
 8. [Multi-Repository Management](#multi-repository-management)
 9. [Task Decomposition Framework](#task-decomposition-framework)
-10. [Quality Gates & Review Patterns](#quality-gates--review-patterns)
+10. [Mandatory Validation Pipeline (MVP)](#mandatory-validation-pipeline-mvp)
 11. [Communication Protocol](#communication-protocol)
 12. [Memory & Knowledge Management](#memory--knowledge-management)
 13. [Autonomy Levels](#autonomy-levels)
 14. [Error Recovery & Escalation](#error-recovery--escalation)
 15. [Security & Safety](#security--safety)
-16. [Common Failure Modes](#common-failure-modes)
+16. [Evaluation-Driven Development](#evaluation-driven-development)
+17. [Common Failure Modes](#common-failure-modes)
 
 ---
 
@@ -65,17 +66,46 @@ agentic-wow/                    # Root workspace
 ├── CLAUDE.md                   # Primary instruction file (source of truth)
 ├── AGENTS.md                   # Model-agnostic pointer → CLAUDE.md
 ├── GEMINI.md                   # Model-agnostic pointer → CLAUDE.md
+├── README.md                   # Human-friendly project overview
 ├── .claude/
-│   └── commands/               # Slash commands for common workflows
-│       ├── start.md            # /start - Session initialization
-│       ├── new-project.md      # /new-project - Create new project
-│       ├── switch.md           # /switch - Switch active project
-│       ├── plan.md             # /plan - Create implementation plan
-│       ├── review.md           # /review - Code review workflow
-│       ├── research.md         # /research - Deep research task
-│       ├── ship.md             # /ship - Prepare for shipping
-│       ├── status.md           # /status - Workspace status report
-│       └── retro.md            # /retro - Session retrospective
+│   ├── settings.json           # Hooks and permissions configuration
+│   ├── skills/                 # Skill definitions (slash commands)
+│   │   ├── start/SKILL.md      # /start - Session initialization
+│   │   ├── new-project/SKILL.md # /new-project - Create new project
+│   │   ├── switch/SKILL.md     # /switch - Switch active project
+│   │   ├── plan/SKILL.md       # /plan - Create implementation plan
+│   │   ├── review/SKILL.md     # /review - Code review workflow
+│   │   ├── research/SKILL.md   # /research - Deep research task
+│   │   ├── ship/SKILL.md       # /ship - Prepare for shipping
+│   │   ├── status/SKILL.md     # /status - Workspace status report
+│   │   ├── retro/SKILL.md      # /retro - Session retrospective
+│   │   ├── fix/SKILL.md        # /fix - Diagnose and fix bugs
+│   │   ├── test/SKILL.md       # /test - Run and analyze tests
+│   │   └── review-wow/SKILL.md # /review-wow - Review methodology
+│   ├── agents/                 # Subagent definitions (14 agents)
+│   │   ├── orchestrator.md     # Coordination & delegation
+│   │   ├── architect.md        # System design
+│   │   ├── developer.md        # Code implementation
+│   │   ├── reviewer.md         # Quality review
+│   │   ├── researcher.md       # Research & analysis
+│   │   ├── planner.md          # Planning & decomposition
+│   │   ├── writer.md           # Content creation
+│   │   ├── tester.md           # Testing & QA
+│   │   ├── devops.md           # Infrastructure & CI/CD
+│   │   ├── security-auditor.md # Security review
+│   │   ├── analyst.md          # Data & business analysis
+│   │   ├── designer.md         # UX & system design
+│   │   ├── marketing-strategist.md # Marketing strategy
+│   │   └── product-manager.md  # Product management
+│   ├── rules/                  # Modular rules (glob-scoped)
+│   │   ├── safety.md           # Core safety rules
+│   │   ├── validation.md       # Validation pipeline rules
+│   │   ├── git-conventions.md  # Git workflow conventions
+│   │   ├── code-quality.md     # Code standards (*.ts, *.py, etc.)
+│   │   ├── testing.md          # Testing standards (*test*, *spec*)
+│   │   ├── content-quality.md  # Content standards (*.md, docs/**)
+│   │   └── context-management.md # Context window management
+│   └── commands/               # Legacy commands (backward compat)
 ├── .docs/
 │   ├── ways-of-working.md      # This file - full methodology
 │   ├── agent-catalog.md        # Complete agent persona catalog
@@ -83,34 +113,12 @@ agentic-wow/                    # Root workspace
 │       ├── software.md
 │       ├── book.md
 │       ├── video.md
+│       ├── audio.md
+│       ├── marketing.md
 │       └── general.md
-├── agents/                     # Agent persona definitions
-│   ├── _base.md                # Base agent behaviors
-│   ├── orchestrator.md         # Meta-orchestration agent
-│   ├── architect.md            # Software architect
-│   ├── developer.md            # Implementation developer
-│   ├── reviewer.md             # Code reviewer
-│   ├── researcher.md           # Deep research agent
-│   ├── planner.md              # Project/task planner
-│   ├── writer.md               # Technical/creative writer
-│   ├── tester.md               # QA and testing agent
-│   ├── devops.md               # DevOps/infrastructure agent
-│   ├── security.md             # Security auditor
-│   ├── analyst.md              # Data/business analyst
-│   ├── designer.md             # UX/system designer
-│   ├── marketing.md            # Marketing strategist
-│   └── product.md              # Product management agent
-├── skills/                     # Reusable skill definitions
-│   ├── git-workflow.md         # Git operations
-│   ├── code-generation.md      # Code generation patterns
-│   ├── testing.md              # Testing strategies
-│   ├── documentation.md        # Documentation generation
-│   ├── refactoring.md          # Refactoring patterns
-│   ├── research.md             # Research methodology
-│   ├── content-creation.md     # Content creation workflow
-│   └── deployment.md           # Deployment procedures
+├── agents/                     # Detailed agent persona documentation
+├── skills/                     # Reusable skill reference documents
 ├── repos/                      # Project repositories (git-ignored)
-│   └── .gitkeep
 └── .gitignore
 ```
 
@@ -501,6 +509,18 @@ Developer completes code
     (may now proceed to /ship)
 ```
 
+### Fix-and-Resubmit Loop
+
+When a gate produces `REQUEST CHANGES` or `FINDINGS` (Critical/High):
+
+1. **Developer fixes** the specific issues identified (not the orchestrator, not the reviewer)
+2. **Developer self-verifies** (Gate 1) again on the fixed code
+3. **Only the failed gate(s) re-run** — not all gates (unless the fix was substantial enough to warrant full re-review)
+4. **Maximum 3 retry loops** — if a gate fails 3 times, escalate to the user for guidance
+5. **Context management**: If the fix-resubmit loop is filling context, externalize the findings to a file, `/clear`, and start the re-review with fresh context
+
+The orchestrator manages this loop. The reviewer and security-auditor are always fresh-context subagents (they don't carry bias from their own previous reviews).
+
 ### Gate 2 Detail: Code Review (ALWAYS MANDATORY)
 
 The `reviewer` subagent MUST be invoked after every code change. The reviewer receives:
@@ -781,6 +801,32 @@ When escalating to the user, always provide:
 - Branch naming convention: `{type}/{description}` (e.g., `feat/add-auth`, `fix/login-bug`)
 - Commits should be atomic and well-described
 - PRs should have clear descriptions and test plans
+
+---
+
+## Evaluation-Driven Development
+
+Build evaluations BEFORE implementing agents or skills (like TDD for agents).
+
+### Process
+1. **Define success criteria** — What does "good output" look like for this agent/skill?
+2. **Write test cases** — At least 5 cases covering: happy path, edge cases, failure scenarios
+3. **Implement the agent/skill** — Write the definition, prompt, and configuration
+4. **Run evaluations** — Test with all relevant model tiers (haiku, sonnet, opus)
+5. **Iterate** — Refine the prompt/config until evaluations pass consistently
+6. **Gate on evals** — Don't ship agents/skills that fail evaluations
+
+### What to Evaluate
+- Does the agent follow its constraints? (e.g., reviewer outputs exactly APPROVE or REQUEST CHANGES)
+- Does the agent use the right tools? (e.g., developer reads before writing)
+- Does the agent handle edge cases? (e.g., empty input, missing files)
+- Is the output format consistent? (e.g., structured review with mandatory sections)
+- Does performance vary across model tiers? (what works on opus may need more detail for sonnet)
+
+### Evaluation Cadence
+- **On every change** to an agent/skill definition
+- **Monthly** for the full methodology (use `/review-wow`)
+- **After model updates** — new model versions may change behavior
 
 ---
 

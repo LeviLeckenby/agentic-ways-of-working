@@ -2,6 +2,7 @@
 name: plan
 description: "Create a detailed implementation plan for a goal or feature"
 user-invocable: true
+argument-hint: "[goal description]"
 ---
 
 # Plan

@@ -3,6 +3,7 @@ name: review
 description: "Review code or content changes using the Mandatory Validation Pipeline"
 user-invocable: true
 context: fork
+agent: Plan
 ---
 
 # Review

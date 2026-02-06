@@ -2,6 +2,7 @@
 name: start
 description: "Initialize a new working session - lists projects, loads context, establishes goals"
 user-invocable: true
+argument-hint: "[project-name]"
 ---
 
 # Session Start

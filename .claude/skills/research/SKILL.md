@@ -3,6 +3,7 @@ name: research
 description: "Conduct deep research on a topic using parallel investigation"
 user-invocable: true
 context: fork
+argument-hint: "[topic or question]"
 ---
 
 # Research

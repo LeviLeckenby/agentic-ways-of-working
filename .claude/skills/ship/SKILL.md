@@ -37,7 +37,7 @@ Before ANYTHING else, verify the Mandatory Validation Pipeline has been complete
 ### 3. If ANY gate fails
 - Report what failed and why with specific details
 - Offer to fix issues automatically
-- After fixes, re-run ALL gates (not just the failed one)
+- After fixes, re-run the failed gate(s). If the fix was substantial, re-run ALL gates.
 - Do NOT proceed to commit until all gates pass
 
 ### 4. Compose commit

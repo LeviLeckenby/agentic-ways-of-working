@@ -1,26 +1,28 @@
 # Reviewer Agent Memory
 
-## Workspace Architecture
-- CLAUDE.md is 248 lines (slightly over the 200-line ideal, within 300-line limit)
-- ways-of-working.md is 698 lines (comprehensive methodology)
-- agent-definitions.yaml is 2041 lines (47 agents defined)
-- Two agent layers: `.claude/agents/` (12 subagents) vs `agents/` (15 personas + 2 YAML)
-- Naming mismatches between layers: security-auditor vs security, marketing-strategist vs marketing, product-manager vs product
-- Missing subagents: orchestrator, designer (exist in agents/ but not .claude/agents/)
+## Workspace Architecture (Updated 2026-02-06)
+- CLAUDE.md is 156 lines (well within 200-line ideal)
+- ways-of-working.md is 855 lines (comprehensive methodology)
+- Two agent layers: `.claude/agents/` (14 subagents) vs `agents/` (14 personas + _base.md)
+- Naming mismatches across layers: security-auditor vs security, marketing-strategist vs marketing, product-manager vs product
+- Both orchestrator and designer now exist in .claude/agents/
+- `.claude/commands/` and `.claude/skills/` contain identical content (full duplication)
+- `.claude/rules/` has 7 glob-scoped rule files
+- 6 project templates exist (software, book, video, audio, marketing, general)
+- `skills/` (root) has 8 reference docs distinct from `.claude/skills/`
 
-## Key Review Findings (2026-02-06 Full Workspace Audit)
-- Three-layer redundancy: .claude/agents/, agents/, agent-definitions.yaml all define overlapping agents
-- CLAUDE.md references `security` persona but subagent is `security-auditor`
-- ways-of-working.md duplicates ~40% of CLAUDE.md content (validation pipeline, session lifecycle)
-- No audio project template despite audio being a supported project type
-- No /debug, /test, /fix slash commands
-- Orchestrator agent has no .claude/agents/ subagent (exists only in agents/)
-- Designer agent has no .claude/agents/ subagent
-- agent-catalog.md uses relative links (../../agents/) that may break
-- Co-Authored-By in commit convention is hardcoded to Anthropic (not model-agnostic)
-- No guidance on how non-Claude tools should handle .claude/agents/ YAML frontmatter
+## Key Findings (2026-02-06 Full Workspace Audit)
+- See `workflow-gaps-analysis.md` for detailed 19-finding analysis
+- Top issues: commands/skills duplication, no README, missing /fix and /test skills, undefined fix-resubmit loop, no subagent failure recovery
+- Content project validation is code-centric (pipeline doesn't adapt for non-code)
+- Stop hook is a blunt instrument (fires on every response, subjective self-assessment)
+- ways-of-working.md structure diagram is outdated (doesn't show skills, agents, rules, settings.json)
+- Autonomy levels and Agent Teams are documented but not actionable
+- "skills" vs "commands" terminology inconsistency throughout
 
 ## Review Patterns
 - Always cross-check consistency between CLAUDE.md, ways-of-working.md, agent definitions, and slash commands
 - Check naming consistency across the two agent layers
 - Verify all cross-references resolve correctly
+- Check for commands/skills duplication when either is modified
+- Verify ways-of-working.md structure diagram matches reality after structural changes
