@@ -1,0 +1,43 @@
+# Repository projects - each repo is its own git repository
+repos/*/
+
+# Keep the repos directory itself
+!repos/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/settings.json
+.idea/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.secret
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Node (if applicable in any tooling)
+node_modules/
+
+# Python (if applicable in any tooling)
+__pycache__/
+*.pyc
+.venv/
+venv/

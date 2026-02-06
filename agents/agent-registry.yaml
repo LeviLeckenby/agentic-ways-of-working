@@ -1,0 +1,433 @@
+# =============================================================================
+# AGENT REGISTRY - Quick Reference for All Agents
+# =============================================================================
+# Compact registry for programmatic use. See agent-definitions.yaml for
+# full descriptions, capabilities, and interaction details.
+# =============================================================================
+
+version: "1.0.0"
+total_agents: 47
+
+# Model distribution:
+#   opus:  8 agents  (17%) - High-stakes, complex reasoning
+#   sonnet: 24 agents (51%) - General-purpose, default tier
+#   haiku: 15 agents (32%) - High-volume, structured tasks
+
+# Interaction distribution:
+#   autonomous:        17 agents (36%)
+#   collaborative:     22 agents (47%)
+#   human-in-the-loop: 14 agents (30%)
+#   supervisory:        2 agents  (4%)
+#   (Some agents have multiple patterns)
+
+agents:
+
+  # --- META / ORCHESTRATION ---
+  - id: orchestrator
+    name: Orchestrator
+    category: meta_orchestration
+    model: opus
+    interaction: supervisory
+    risk_level: critical
+
+  - id: context_manager
+    name: Context Manager
+    category: meta_orchestration
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: knowledge_synthesizer
+    name: Knowledge Synthesizer
+    category: meta_orchestration
+    model: opus
+    interaction: collaborative
+    risk_level: medium
+
+  - id: quality_gate
+    name: Quality Gate
+    category: meta_orchestration
+    model: sonnet
+    interaction: supervisory
+    risk_level: high
+
+  # --- SOFTWARE ENGINEERING ---
+  - id: sw_architect
+    name: Software Architect
+    category: software_engineering
+    model: opus
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: sw_developer
+    name: Software Developer
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: code_reviewer
+    name: Code Reviewer
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: debugger
+    name: Debugger
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: refactorer
+    name: Refactoring Specialist
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: test_engineer
+    name: Test Engineer
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: low
+
+  - id: security_auditor
+    name: Security Auditor
+    category: software_engineering
+    model: opus
+    interaction: human-in-the-loop
+    risk_level: critical
+
+  - id: performance_optimizer
+    name: Performance Optimizer
+    category: software_engineering
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: doc_writer
+    name: Documentation Writer
+    category: software_engineering
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: api_designer
+    name: API Designer
+    category: software_engineering
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: database_designer
+    name: Database Designer
+    category: software_engineering
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  # --- RESEARCH & ANALYSIS ---
+  - id: researcher
+    name: Researcher
+    category: research_analysis
+    model: sonnet
+    interaction: autonomous
+    risk_level: low
+
+  - id: analyst
+    name: Analyst
+    category: research_analysis
+    model: sonnet
+    interaction: autonomous
+    risk_level: low
+
+  - id: fact_checker
+    name: Fact Checker
+    category: research_analysis
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: competitive_analyst
+    name: Competitive Analyst
+    category: research_analysis
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: technology_scout
+    name: Technology Scout
+    category: research_analysis
+    model: sonnet
+    interaction: autonomous
+    risk_level: low
+
+  # --- PLANNING & MANAGEMENT ---
+  - id: project_planner
+    name: Project Planner
+    category: planning_management
+    model: opus
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: task_decomposer
+    name: Task Decomposer
+    category: planning_management
+    model: sonnet
+    interaction: collaborative
+    risk_level: low
+
+  - id: sprint_planner
+    name: Sprint Planner
+    category: planning_management
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: dependency_analyzer
+    name: Dependency Analyzer
+    category: planning_management
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: risk_assessor
+    name: Risk Assessor
+    category: planning_management
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  # --- CREATIVE & CONTENT ---
+  - id: content_writer
+    name: Content Writer
+    category: creative_content
+    model: opus
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: editor
+    name: Editor
+    category: creative_content
+    model: sonnet
+    interaction: collaborative
+    risk_level: low
+
+  - id: content_strategist
+    name: Content Strategist
+    category: creative_content
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: copywriter
+    name: Copywriter
+    category: creative_content
+    model: sonnet
+    interaction: collaborative
+    risk_level: low
+
+  - id: ux_writer
+    name: UX Writer
+    category: creative_content
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: book_production_manager
+    name: Book Production Manager
+    category: creative_content
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: audiobook_producer
+    name: Audiobook Producer
+    category: creative_content
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: video_production_planner
+    name: Video Production Planner
+    category: creative_content
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  # --- MARKETING ---
+  - id: marketing_strategist
+    name: Marketing Strategist
+    category: marketing
+    model: opus
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: seo_specialist
+    name: SEO Specialist
+    category: marketing
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: social_media_planner
+    name: Social Media Planner
+    category: marketing
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: brand_voice_guardian
+    name: Brand Voice Guardian
+    category: marketing
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: email_campaign_designer
+    name: Email Campaign Designer
+    category: marketing
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  # --- DEVOPS & INFRASTRUCTURE ---
+  - id: devops_cicd
+    name: CI/CD Specialist
+    category: devops_infrastructure
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: infra_planner
+    name: Infrastructure Planner
+    category: devops_infrastructure
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: devops_monitoring
+    name: Monitoring Analyst
+    category: devops_infrastructure
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: deployment_strategist
+    name: Deployment Strategist
+    category: devops_infrastructure
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  # --- QUALITY ASSURANCE ---
+  - id: qa_strategist
+    name: QA Strategist
+    category: quality_assurance
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: test_case_designer
+    name: Test Case Designer
+    category: quality_assurance
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: bug_triager
+    name: Bug Triager
+    category: quality_assurance
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: regression_analyst
+    name: Regression Analyst
+    category: quality_assurance
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  # --- DATA & ANALYTICS ---
+  - id: data_analyst
+    name: Data Analyst
+    category: data_analytics
+    model: sonnet
+    interaction: collaborative
+    risk_level: low
+
+  - id: metrics_designer
+    name: Metrics Designer
+    category: data_analytics
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: medium
+
+  - id: reporting_specialist
+    name: Reporting Specialist
+    category: data_analytics
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  # --- PRODUCT ---
+  - id: product_analyst
+    name: Product Analyst
+    category: product
+    model: sonnet
+    interaction: collaborative
+    risk_level: medium
+
+  - id: feature_prioritizer
+    name: Feature Prioritizer
+    category: product
+    model: sonnet
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: user_story_writer
+    name: User Story Writer
+    category: product
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  - id: acceptance_criteria_writer
+    name: Acceptance Criteria Writer
+    category: product
+    model: haiku
+    interaction: collaborative
+    risk_level: low
+
+  # --- CROSS-CUTTING SPECIALISTS ---
+  - id: accessibility_specialist
+    name: Accessibility Specialist
+    category: cross_cutting
+    model: haiku
+    interaction: autonomous
+    risk_level: medium
+
+  - id: i18n_specialist
+    name: Internationalization Specialist
+    category: cross_cutting
+    model: haiku
+    interaction: autonomous
+    risk_level: low
+
+  - id: license_compliance
+    name: License & Compliance Analyst
+    category: cross_cutting
+    model: haiku
+    interaction: human-in-the-loop
+    risk_level: high
+
+  - id: prompt_engineer
+    name: Prompt Engineer
+    category: cross_cutting
+    model: opus
+    interaction: collaborative
+    risk_level: high
